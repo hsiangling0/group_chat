@@ -47,7 +47,7 @@ export default function Chat() {
   // socket name1
   useEffect(() => {
     if (name1) {
-      socket.current = io("http://localhost:5844");
+      socket.current = io("http://luffy.ee.ncku.edu.tw:5844");
       socket.current.emit("addUser", name1, account1);
     }
     return () => {
