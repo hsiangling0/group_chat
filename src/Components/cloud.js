@@ -6,7 +6,7 @@ export default function Cloud(props) {
   useEffect(() => {
     console.log(props.keyword);
     generateWordCloud(props.keyword);
-  }, []);
+  }, [props.keyword]);
   // useEffect(() => {
   //   if (props.chat == "") return;
   //   generateWordCloudOnPageLoad(props.chat);
