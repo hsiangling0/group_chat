@@ -1,3 +1,4 @@
+import React from "react";
 import { Flex, Stack } from "@chakra-ui/layout";
 import userIcon from "../Icon/user.svg";
 import { useFormik } from "formik";
@@ -8,6 +9,7 @@ import {
   Button,
   Image,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { LockIcon } from "@chakra-ui/icons";
 import styled from "@emotion/styled";
@@ -19,6 +21,9 @@ import pwd_input_bg from "../Icon/input2.svg";
 import login_bg from "../Icon/login.svg";
 export default function Login() {
   const navigate = useNavigate();
+  const toast = useToast();
+  const toastIdRef = React.useRef();
+
   const formik = useFormik({
     initialValues: {
       account: "",
@@ -27,11 +32,19 @@ export default function Login() {
     onSubmit: (values) => {
       userLogin(values.account, values.pwd)
         .then((res) => {
-          sessionStorage.clear();
-          sessionStorage.setItem("token", JSON.stringify(res.token));
-          sessionStorage.setItem("name", JSON.stringify(res.userName));
-          sessionStorage.setItem("account", JSON.stringify(values.account));
-          navigate("/chat");
+          if (res.detail == "User name or Password wrong") {
+            toastIdRef.current = toast({
+              description: "Incorrect account or password",
+              status: "error",
+            });
+          } else {
+            sessionStorage.clear();
+            sessionStorage.setItem("token", JSON.stringify(res.token));
+            sessionStorage.setItem("name", JSON.stringify(res.userName));
+            sessionStorage.setItem("account", JSON.stringify(values.account));
+            navigate("/chat");
+          }
+          console.log(res.detail);
         })
         .catch((err) => {
           console.log(err);

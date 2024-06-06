@@ -41,17 +41,17 @@ export default function Cloud(props) {
 
     // 将单词转换为 d3-cloud 需要的格式
     const wordCloudData = keyword.map((word) => ({
-      text: word[0],
+      text: word[0].toUpperCase(),
       size: word[1],
     }));
 
     // 创建词云布局
     const layout = cloud()
-      .size([400, 400])
+      .size([700, 700])
       .words(wordCloudData)
-      .padding(5)
+      .padding(15)
       .rotate(() => Math.random() * 60 - 30)
-      .fontSize((d) => 15 + d.size * 30)
+      .fontSize((d) => 15 + d.size * 50)
       .on("end", draw);
 
     layout.start();
@@ -61,8 +61,8 @@ export default function Cloud(props) {
       // 创建 Canvas 元素
       setDateURL("");
       const canvas = document.createElement("canvas");
-      canvas.width = 600;
-      canvas.height = 400;
+      canvas.width = 700;
+      canvas.height = 700;
       const context = canvas.getContext("2d");
       //背景顏色
       //   context.fillStyle = "white";
@@ -70,7 +70,7 @@ export default function Cloud(props) {
       context.fillRect(0, 0, canvas.width, canvas.height);
       // 将词云绘制到 Canvas 上
       words.forEach((word) => {
-        context.font = `${word.size}px Arial`;
+        context.font = `900 ${word.size}px Arial`;
         //詞的顏色
         // const isWhite = Math.floor(Math.random() * 2) * 255;
         // const randomColor = `rgb(
@@ -83,8 +83,8 @@ export default function Cloud(props) {
         context.fillStyle = randomColor;
         context.textAlign = "center";
         //調整字的位置
-        const x = word.x + 300;
-        const y = word.y + 200;
+        const x = word.x + 350;
+        const y = word.y + 350;
         context.fillText(word.text, x, y);
       });
 
@@ -105,7 +105,7 @@ export default function Cloud(props) {
     }
   };
   return (
-    <Flex w="70%" h="85%" m="5%" justifyContent="center" border="dashed 1.5px">
+    <Flex w="70%" justifyContent="center">
       <img src={dataURL}></img>
     </Flex>
   );
