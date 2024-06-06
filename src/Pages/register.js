@@ -1,3 +1,4 @@
+import React from "react";
 import { Flex, Stack } from "@chakra-ui/layout";
 import userIcon from "../Icon/user.svg";
 import { useFormik } from "formik";
@@ -8,6 +9,7 @@ import {
   Button,
   Image,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { LockIcon } from "@chakra-ui/icons";
 import styled from "@emotion/styled";
@@ -20,6 +22,8 @@ import pwd_input_bg from "../Icon/input3.svg";
 import login_bg from "../Icon/login.svg";
 export default function Register() {
   const navigate = useNavigate();
+  const toast = useToast();
+  const toastIdRef = React.useRef();
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -29,11 +33,18 @@ export default function Register() {
     onSubmit: (values) => {
       userRegister(values.account, values.name, values.pwd)
         .then((res) => {
-          sessionStorage.clear();
-          sessionStorage.setItem("token", JSON.stringify(res.token));
-          sessionStorage.setItem("name", JSON.stringify(res.userName));
-          sessionStorage.setItem("account", JSON.stringify(values.account));
-          navigate("/chat");
+          if (res == "") {
+            toastIdRef.current = toast({
+              description: "This account is already registered",
+              status: "error",
+            });
+          } else {
+            sessionStorage.clear();
+            sessionStorage.setItem("token", JSON.stringify(res.token));
+            sessionStorage.setItem("name", JSON.stringify(res.userName));
+            sessionStorage.setItem("account", JSON.stringify(values.account));
+            navigate("/chat");
+          }
         })
         .catch((err) => {
           console.log(err);
