@@ -22,10 +22,6 @@ import {
 } from "@chakra-ui/react";
 import moment from "moment";
 import "react-day-picker/dist/style.css";
-// import InputEmoji from "react-input-emoji";
-// import send from "../Icon/send.svg";
-// import tab_bg from "../Icon/tab.png";
-// import chat_bg from "../Icon/bg.svg";
 import { io } from "socket.io-client";
 export default function Chat() {
   const socket = useRef();
@@ -38,7 +34,6 @@ export default function Chat() {
   const [loading, setLoading] = useState(false);
   const [revise, setRevise] = useState(false);
   const [reText, setRetext] = useState({ text: "", p: 0 });
-  // const [percentage, setPercentage] = useState(0);
   const [text, setText] = useState("");
   const [message, setMessage] = useState("");
   const [notification, setNotification] = useState([]);

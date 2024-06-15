@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Flex, Box, Text, Button } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-// import header from "../Icon/header.svg";
 
 export default function Navbar(props) {
   const [scrolled, setScrolled] = useState(window.scrollY > 0);

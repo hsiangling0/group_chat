@@ -31,7 +31,6 @@ export default function Profile(){
         .catch((err) => {
           console.log(err);
         });
-        // console.log(values.name)
       },
     });
     useEffect(() => {
@@ -55,32 +54,8 @@ export default function Profile(){
           }
         })
         setImageURL(base64)
-        // const formData = new FormData();
-        // formData.append("file", file);
-        // for (var pair of formData.entries()) {
-        //   console.log(pair[0]+ ', ' + pair[1]); 
       }
-      //console.log(file)
-        // const reader = new FileReader();
-        // reader.readAsDataURL(file);
-        // reader.onload = () => resolve(reader.result);
-        // reader.onerror = error => reject(error);
-        // console.log(reader)
-        // console.log(url)
       }
-    
-    // convertBase64 = (file) => {
-    //   return new Promise((resolve, reject) => {
-    //     const fileReader = new FileReader();
-    //     fileReader.readAsDataURL(file)
-    //     fileReader.onload = () => {
-    //       resolve(fileReader.result);
-    //     }
-    //     fileReader.onerror = (error) => {
-    //       reject(error);
-    //     }
-    //   })
-    // }
     return withAuth(
         <Stack h="calc(100vh - 113px)" w="100vw" bgColor="#EBEBE9"
         borderRadius="50px" m="15px" alignItems="center" justifyContent="center" position="relative">

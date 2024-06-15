@@ -4,8 +4,6 @@ import { getMessage } from "./api";
 export const LastMessage = (chatID, account, notification, message) => {
   const [lastMessage, setLastMessage] = useState("");
   useEffect(() => {
-    console.log(chatID);
-    console.log(account);
     getMessage(chatID, account).then((res) => {
       if (res == "No message yet") {
         setLastMessage("");

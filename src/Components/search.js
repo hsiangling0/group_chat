@@ -1,5 +1,4 @@
 import { Flex } from "@chakra-ui/layout";
-// import Search2Icon from "../Icon/user.svg";
 import { SearchIcon } from "@chakra-ui/icons";
 import addIcon from "../Icon/add.svg";
 import { useDisclosure } from "@chakra-ui/react";
@@ -25,7 +24,6 @@ import {
 import { useFormik } from "formik";
 import { searchUser, createChat } from "../Utilities/api";
 export default function Search(props) {
-  //var name1 = JSON.parse(sessionStorage.getItem("name"));
   var account1 = JSON.parse(sessionStorage.getItem("account"));
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchResult, setSearchR] = useState([]);

@@ -5,7 +5,6 @@ import { Flex, Stack } from "@chakra-ui/layout";
 import { Avatar, Text, Divider } from "@chakra-ui/react";
 import moment from "moment";
 export default function FriendList(props) {
-  //var name1 = JSON.parse(sessionStorage.getItem("name"));
   var account1 = JSON.parse(sessionStorage.getItem("account"));
   const all_notification = unreadNotification(props.notification);
   const notification_num = all_notification?.filter(
@@ -63,5 +62,3 @@ export default function FriendList(props) {
     </Stack>
   );
 }
-//const FriendList = React.memo(props)=>{}
-//export default React.memo(FriendList);

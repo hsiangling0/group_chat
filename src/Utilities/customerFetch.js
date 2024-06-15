@@ -26,12 +26,6 @@ export const customFetch = async (
     }).catch((error) => {
       // sessionStorage.removeItem("token");
       console.log(error);
-      // switch (error.response.status) {
-      //   case 400:
-      //     break;
-      //   default:
-      //     break
-      // }
     });
     return res.data;
   } else {

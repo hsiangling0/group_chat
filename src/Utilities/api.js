@@ -19,12 +19,6 @@ export const findID = (userid) =>
   customFetch("/users/find", "POST", false, {
     userID: userid,
   });
-
-// export const createChat = (id1, id2) =>
-//   customFetch("/chat/create", "POST", false, {
-//     firstID: id1,
-//     secondID: id2,
-//   });
 export const createChat = (friendID, account, time) =>
   customFetch("/chat/create", "POST", true, {
     friendID: friendID,
