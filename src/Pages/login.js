@@ -16,9 +16,9 @@ import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { userLogin } from "../Utilities/api";
 import { useNavigate } from "react-router-dom";
-import usr_input_bg from "../Icon/input1.svg";
-import pwd_input_bg from "../Icon/input2.svg";
-import login_bg from "../Icon/login.svg";
+// import usr_input_bg from "../Icon/input1.svg";
+// import pwd_input_bg from "../Icon/input2.svg";
+// import login_bg from "../Icon/login.svg";
 export default function Login() {
   const navigate = useNavigate();
   const toast = useToast();
@@ -44,7 +44,6 @@ export default function Login() {
             sessionStorage.setItem("account", JSON.stringify(values.account));
             navigate("/chat");
           }
-          console.log(res.detail);
         })
         .catch((err) => {
           console.log(err);
@@ -52,14 +51,14 @@ export default function Login() {
     },
   });
   return (
-    <Stack bgColor="#F3EEEB" h="100vh" w="100vw" alignItems="center">
+    <Stack bgColor="#EBEBE9" h="100vh" w="100vw" alignItems="center">
       <Stack w="50vw" mt="15vh" alignItems="center">
-        <Text color="#130832" fontSize="xx-large" fontWeight="bold" mb="10vh">
+        <Text color="#000000" fontSize="xx-large" fontWeight="bold" mb="10vh">
           Welcome to ChatApp
         </Text>
         <form onSubmit={formik.handleSubmit}>
           <Stack>
-            <CustomControll bgImg={usr_input_bg}>
+            <CustomControll bgColor="#FFB6B5">
               <Flex alignItems="center" h="100%">
                 <CustomLabel>
                   <Image src={userIcon} ml="10px" />
@@ -74,15 +73,15 @@ export default function Login() {
                   color="#ffffff"
                   fontSize="18px"
                   fontWeight="bolder"
-                  focusBorderColor="#598983"
+                  focusBorderColor="#FFB6B5"
                 />
               </Flex>
             </CustomControll>
-            <CustomControll bgImg={pwd_input_bg}>
+            <CustomControll bgColor="#FFB6B5">
               <Flex alignItems="center" h="100%">
                 <CustomLabel>
                   <LockIcon
-                    color="#132644"
+                    color="#000000"
                     boxSize="20px"
                     ml="20px"
                     mr="10px"
@@ -99,14 +98,14 @@ export default function Login() {
                   color="#ffffff"
                   fontSize="18px"
                   fontWeight="bolder"
-                  focusBorderColor="#598983"
+                  focusBorderColor="#FFB6B5"
                 />
               </Flex>
             </CustomControll>
             <Button
               type="submit"
               mt="15vh"
-              bgImg={login_bg}
+              bgColor="#000000"
               borderRadius="30px"
               h="60px"
               color="white"
@@ -117,7 +116,7 @@ export default function Login() {
             </Button>
           </Stack>
         </form>
-        <Flex color="#130832">
+        <Flex color="#000000">
           <Text mr="20px">Don’t have an account?</Text>
           <Link to="/register">Sign up</Link>
         </Flex>

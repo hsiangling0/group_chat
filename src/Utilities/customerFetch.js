@@ -33,7 +33,6 @@ export const customFetch = async (
       //     break
       // }
     });
-    console.log(res);
     return res.data;
   } else {
     const headers = {};

@@ -24,12 +24,12 @@ export default function FriendList(props) {
       onClick={() => props.updateChat(props.receiver, notification_num)}
     >
       <Flex alignItems="center" w="100%">
-        <Avatar name={props.receiver.friendName}></Avatar>
+        {props.receiver.photo?<img style={{width:"48px",height:"48px",borderRadius: "100px",objectFit:"cover"}}src={props.receiver.photo}></img>:<Avatar name={props.receiver.friendName}></Avatar>}
         <Stack ml="20px" flexGrow="1">
           <Flex justifyContent="space-between">
             <Text fontSize="16px">{props.receiver.friendName}</Text>
             {lastMessage && (
-              <Text fontSize="12px">
+              <Text fontSize="12px" color="#ADADAD">
                 {moment(JSON.parse(lastMessage.date)).calendar(moment(), {})}
               </Text>
             )}

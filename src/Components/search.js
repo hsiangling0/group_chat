@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/layout";
-import Search2Icon from "../Icon/user.svg";
+// import Search2Icon from "../Icon/user.svg";
+import { SearchIcon } from "@chakra-ui/icons";
 import addIcon from "../Icon/add.svg";
 import { useDisclosure } from "@chakra-ui/react";
 import React, { useState } from "react";
@@ -28,7 +29,6 @@ export default function Search(props) {
   var account1 = JSON.parse(sessionStorage.getItem("account"));
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchResult, setSearchR] = useState([]);
-  //id1 = id1.split('"')[1];
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -36,28 +36,15 @@ export default function Search(props) {
     onSubmit: (values) => {
       onOpen();
       searchUser(account1, values.name).then((res) => {
-        console.log(res.response);
         setSearchR(res.response);
       });
-      // createChat(name1, values.name)
-      //   .then((chat) => {
-      //     props.getChang({
-      //       id: chat.id,
-      //       member: values.name,
-      //     });
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
     },
   });
   const addFriend = (e) => {
-    console.log(e.friendID);
     const currentDate = new Date();
     const timestamp = currentDate.getTime();
     createChat(e.friendID, account1, timestamp)
       .then((chat) => {
-        console.log(chat.roomID);
         props.getChang({
           roomID: chat.roomID,
           friendName: e.friendName,
@@ -69,21 +56,24 @@ export default function Search(props) {
       });
   };
   return (
-    <Flex bgColor="white" borderRadius="30px" h="75px" alignItems="center">
+    <Flex bgColor="#EBEBE9" borderRadius="30px" h="75px" alignItems="center">
       <form
         onSubmit={formik.handleSubmit}
         style={{ width: "85%", marginLeft: "5%" }}
       >
         <Flex w="100%">
           <FormControl>
-            <Flex alignItems="center" h="100%">
-              <FormLabel mr="0px" mb="0px">
-                <Image src={Search2Icon} ml="10px" />
-              </FormLabel>
+            <Flex alignItems="center" h="40px" border="#ADADAD solid 1px" bgColor="white" borderRadius="10px" mr="10px" color="#ADADAD">
+              <SearchIcon
+                  color="#ADADAD"
+                  boxSize="20px"
+                  ml="20px"
+                />
               <Input
-                w="210px"
+                w="250px"
+                h="90%"
                 name="name"
-                placeholder="search for user name..."
+                placeholder="search for the user name..."
                 onChange={formik.handleChange}
                 value={formik.values.name}
                 border="none"

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Flex, Box, Text, Button } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import header from "../Icon/header.svg";
+// import header from "../Icon/header.svg";
 
 export default function Navbar(props) {
   const [scrolled, setScrolled] = useState(window.scrollY > 0);
   const navHeight = "75px";
   const handleScroll = () => setScrolled(window.scrollY > 0);
   const navigate = useNavigate();
+  var currentPage = window.location.href;
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
 
@@ -20,7 +21,7 @@ export default function Navbar(props) {
     navigate("/");
   }
   return (
-    <Box w="100vw" h="100vh" bgColor="rgba(234, 216, 202,0.26)">
+    <Box w="100vw" h="100vh" bgColor="black">
       <Flex
         h={navHeight}
         w="98vw"
@@ -32,25 +33,28 @@ export default function Navbar(props) {
         top="13px"
         left="1vw"
         boxShadow={scrolled ? "0px 5px 10px rgba(0, 0, 0, 0.05)" : "none"}
-        bgImg={header}
-        bgColor="rgba(234, 216, 202,0.26)"
-        bgSize="cover"
+        bgColor="#EBEBE9"
         borderRadius="20px"
       >
-        <Text fontSize="40px" color="white" fontWeight="bolder" ml={15}>
-          The Cloud
+        <Text fontSize="40px" color="blck" fontWeight="900" ml={15} fontFamily="Abril Fatface">
+          The Filter
         </Text>
-        <Flex mr="25px" alignItems="center">
-          <Link to="https://emotional-context-web-grccxmtmma-uc.a.run.app">
-            <Text color="white" fontWeight="bold">
-              About us
-            </Text>
+        <Flex mr="25px" alignItems="center" fontFamily="Abhaya Libre">
+          {currentPage.endsWith('chat')?<Link to="/profile">
+            Profile
+          </Link>:<Link to="/chat">
+            Chat
+          </Link>}
+          <Flex mr="40px"></Flex>
+          <Link to="http://luffy.ee.ncku.edu.tw:3001">
+           About us
           </Link>
           <Button
             ml="40px"
             variant="unstyled"
             background="none"
-            color="white"
+            color="black"
+            fontWeight="regular"
             onClick={() => logout()}
           >
             Logout
