@@ -11,7 +11,7 @@ Our chatroom offers a unique revise function that allows you to adjust your mess
 
 ### Analyze Your Relationships with Our Insightful Tools
 
-![analysis](./readme_img/analysis.png)
+![analysis](./readme_img/analysis_page.png)
 Our analysis page offers valuable insights into your relationships through various data points.
 
 1. Word Cloud: This feature highlights common interests and topics between you and your friends.
