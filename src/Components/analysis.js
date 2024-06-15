@@ -31,7 +31,6 @@ export default function Analysis(props) {
         setCurrValue([0, Math.abs(range)]);
         createReport(startChat, timestamp);
       })
-      //   .then(() => createReport())
       .catch((err) => {
         console.log(err);
       });
@@ -72,7 +71,6 @@ export default function Analysis(props) {
     let nextday = moment(end, "YYYY-MM-DD").add(1, "days");
     let endD = new Date(nextday);
     let getEnd = endD.getTime();
-    //let nextday=moment(getEnd, "YYYY-MM-DD").add(1, "days");
     chatAnalysis(props.userID, props.chatID, getStart, getEnd)
       .then((res) => {
         setResult(res);

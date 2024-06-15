@@ -16,9 +16,6 @@ import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { userLogin } from "../Utilities/api";
 import { useNavigate } from "react-router-dom";
-// import usr_input_bg from "../Icon/input1.svg";
-// import pwd_input_bg from "../Icon/input2.svg";
-// import login_bg from "../Icon/login.svg";
 export default function Login() {
   const navigate = useNavigate();
   const toast = useToast();
@@ -54,7 +51,7 @@ export default function Login() {
     <Stack bgColor="#EBEBE9" h="100vh" w="100vw" alignItems="center">
       <Stack w="50vw" mt="15vh" alignItems="center">
         <Text color="#000000" fontSize="xx-large" fontWeight="bold" mb="10vh">
-          Welcome to ChatApp
+          Welcome to The Filter
         </Text>
         <form onSubmit={formik.handleSubmit}>
           <Stack>
