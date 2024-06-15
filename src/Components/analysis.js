@@ -19,7 +19,6 @@ export default function Analysis(props) {
   const timestamp = moment(currentDate.getTime()).format("YYYY-MM-DD");
   const [result, setResult] = useState({});
   useEffect(() => {
-    console.log(currentDate.getTime());
     chatStartTime(props.userID, props.chatID)
       .then((res) => {
         let startChat = moment(res.startTime).format("YYYY-MM-DD");
@@ -44,14 +43,12 @@ export default function Analysis(props) {
   };
   const changeRange = ([newStart, newEnd]) => {
     setCurrValue([newStart, newEnd]);
-    console.log(newStart);
     let start = moment(chatStart, "YYYY-MM-DD").add(newStart, "days");
     let end = moment(timestamp, "YYYY-MM-DD").subtract(
       maxRange - newEnd,
       "days"
     );
     let range = calcDate(start, end);
-    console.log(start);
     setStartDate(moment(start).format("YYYY-MM-DD"));
     setEndDate(moment(end).format("YYYY-MM-DD"));
     setAmount(range);
@@ -59,7 +56,6 @@ export default function Analysis(props) {
   const ChangeAmount = (e) => {
     setAmount(e);
     let start = currentValue[1] - e;
-    console.log(start);
     let startDay = moment(chatStart, "YYYY-MM-DD").add(start, "days");
     setCurrValue([start, currentValue[1]]);
     setStartDate(moment(startDay).format("YYYY-MM-DD"));
@@ -76,12 +72,9 @@ export default function Analysis(props) {
     let nextday = moment(end, "YYYY-MM-DD").add(1, "days");
     let endD = new Date(nextday);
     let getEnd = endD.getTime();
-    console.log(getStart);
-    console.log(getEnd);
     //let nextday=moment(getEnd, "YYYY-MM-DD").add(1, "days");
     chatAnalysis(props.userID, props.chatID, getStart, getEnd)
       .then((res) => {
-        console.log(res);
         setResult(res);
       })
       .catch((err) => {
@@ -100,35 +93,36 @@ export default function Analysis(props) {
         {result.keyword && <Cloud keyword={result.keyword} />}
         <Stack w="40%" mr="40px" ml="40px" justifyContent="space-around">
           <Stack>
-            <AnalysisD>{result.avgScore}%</AnalysisD>
-            <AnalysisT>平均改寫程度</AnalysisT>
+            <AnalysisD fontFamily="Abril Fatface">{result.avgScore}%</AnalysisD>
+            <AnalysisT>Average degree of revising</AnalysisT>
           </Stack>
           <Flex justifyContent="space-between" alignItems="flex-end">
             <Stack>
-              <AnalysisD>{result.rewriteCount}</AnalysisD>
-              <AnalysisT>改寫訊息數</AnalysisT>
+              <AnalysisD fontFamily="Abril Fatface">{result.rewriteCount}</AnalysisD>
+              <AnalysisT>Number of<br/>revised messages</AnalysisT>
             </Stack>
             <Stack>
-              <Text fontSize="40px" fontWeight="900" lineHeight="40px">
+              <Text fontSize="50px" fontWeight="900" lineHeight="40px" fontFamily="Abril Fatface">
                 {result.totalCount}
               </Text>
-              <AnalysisT>總訊息數</AnalysisT>
+              <AnalysisT>Number of<br/>total messages</AnalysisT>
             </Stack>
           </Flex>
           <Stack>
-            <Text lineHeight="40px" fontSize="40px" m="auto" fontWeight="900">
+            <Text lineHeight="50px" fontSize="40px" m="auto" fontWeight="900" fontFamily="Abril Fatface">
               {result.ratio}%
             </Text>
             <Progress
-              colorScheme="blackAlpha"
-              bgColor="white"
+              colorScheme="bar"
+              bgColor="#7d7a7a"
               value={result.ratio}
               borderRadius="10px"
+              p="2px"
             />
             <Flex justifyContent="space-between">
-              <AnalysisT>我</AnalysisT>
-              <AnalysisT>改寫比例</AnalysisT>
-              <AnalysisT>對方</AnalysisT>
+              <AnalysisT>me</AnalysisT>
+              <AnalysisT>percentage of<br/>revising</AnalysisT>
+              <AnalysisT>other</AnalysisT>
             </Flex>
           </Stack>
         </Stack>
@@ -158,6 +152,12 @@ export default function Analysis(props) {
             <Slider
               range
               allowCross={false}
+              trackStyle={{ backgroundColor: "black" }}
+              handleStyle={{
+                borderColor: "black",
+                backgroundColor: "black",
+                boxShadow: "0",
+              }}
               min={0}
               max={maxRange}
               value={currentValue}
@@ -206,7 +206,7 @@ const AnalysisT = styled(Text)`
 `;
 const AnalysisD = styled(Text)`
   color: black;
-  font-size: 90px;
+  font-size: 100px;
   font-weight: 900;
   line-height: 90px;
 `;

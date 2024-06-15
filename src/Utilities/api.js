@@ -69,3 +69,13 @@ export const chatAnalysis = (account, id, timeStart, timeEnd) =>
     timeStart: timeStart,
     timeEnd: timeEnd,
   });
+
+export const profileSet = (account,name,photo) =>
+  customFetch("/photo/set", "POST", true, {
+    userID:account,
+    userName:name
+  },{photo:photo});
+export const profileGet = (account) =>
+  customFetch("/photo/get", "POST", true, {
+    userID: account,
+  });

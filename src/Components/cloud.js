@@ -7,37 +7,7 @@ export default function Cloud(props) {
     console.log(props.keyword);
     generateWordCloud(props.keyword);
   }, [props.keyword]);
-  // useEffect(() => {
-  //   if (props.chat == "") return;
-  //   generateWordCloudOnPageLoad(props.chat);
-  // }, [props.chat]);
-  // const generateWordCloudOnPageLoad = (data) => {
-  //   const allTexts = data.map((entry) => entry.text);
-  //   generateWordCloud(allTexts);
-  // };
   const generateWordCloud = (keyword) => {
-    // 将文本分解为单词
-    // const words = texts
-    //   .join(" ")
-    //   .split(" ")
-    //   .map((word) => word.trim())
-    //   .filter((word) => word !== "");
-
-    // 计算每个单词的出现次数
-    // const wordCounts = {};
-    // words.forEach((word) => {
-    //   wordCounts[word] = (wordCounts[word] || 0) + 1;
-    // });
-
-    // 将单词转换为 d3-cloud 需要的格式
-    // const wordCloudData = Object.keys(wordCounts).map(word => ({
-    //     text: word,
-    //     size: wordCounts[word]
-    // }));
-    //設定出現次數大於幾的詞可以顯示
-    // const filteredWords = Object.keys(wordCounts).filter(
-    //   (word) => wordCounts[word] >= 1
-    // );
 
     // 将单词转换为 d3-cloud 需要的格式
     const wordCloudData = keyword.map((word) => ({
@@ -50,8 +20,8 @@ export default function Cloud(props) {
       .size([700, 700])
       .words(wordCloudData)
       .padding(15)
-      .rotate(() => Math.random() * 60 - 30)
-      .fontSize((d) => 15 + d.size * 50)
+      .rotate(0)
+      .fontSize((d) =>d.size * 43)
       .on("end", draw);
 
     layout.start();
@@ -78,9 +48,9 @@ export default function Cloud(props) {
         //   ${isWhite},
         //   ${isWhite}
         // )`;
-        const randomColor = "rgb(0,0,0)";
+        // const randomColor = "rgb(0,0,0)";
 
-        context.fillStyle = randomColor;
+        context.fillStyle = "rgb(0,0,0)";
         context.textAlign = "center";
         //調整字的位置
         const x = word.x + 350;
@@ -92,16 +62,7 @@ export default function Cloud(props) {
       const dataURL = canvas.toDataURL();
 
       // 创建图像元素
-      //const imgElement = document.createElement("img");
       setDateURL(dataURL);
-      //   imgElement.src = dataURL;
-
-      //   imgElement.style.position = "absolute";
-      //   imgElement.style.top = "200px";
-      //   imgElement.style.left = "200px";
-
-      // 插入到词云容器中
-      // document.getElementById("wordcloud-container").appendChild(imgElement);
     }
   };
   return (

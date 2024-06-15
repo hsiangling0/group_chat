@@ -18,15 +18,14 @@ import {
   Tab,
   TabList,
   TabPanels,
-  TabPanel,
-  Image,
+  TabPanel
 } from "@chakra-ui/react";
 import moment from "moment";
 import "react-day-picker/dist/style.css";
 // import InputEmoji from "react-input-emoji";
 // import send from "../Icon/send.svg";
-import tab_bg from "../Icon/tab.png";
-import chat_bg from "../Icon/bg.svg";
+// import tab_bg from "../Icon/tab.png";
+// import chat_bg from "../Icon/bg.svg";
 import { io } from "socket.io-client";
 export default function Chat() {
   const socket = useRef();
@@ -34,6 +33,7 @@ export default function Chat() {
   const [userList, setList] = useState([]);
   const [currentChat, setCurrent] = useState([]);
   const [receiverName, setReceiverName] = useState("");
+  const [receiverAvatar, setReceiverAvatar] = useState("");
   const [chatroom, setChatRoom] = useState("");
   const [loading, setLoading] = useState(false);
   const [revise, setRevise] = useState(false);
@@ -62,7 +62,6 @@ export default function Chat() {
   //receive message and notification
   useEffect(() => {
     socket.current.on("getMessage", (res) => {
-      console.log(res);
       if (chatroom != res.chatId) return;
       setCurrent((prev) => [...prev, res]);
     });
@@ -92,7 +91,6 @@ export default function Chat() {
           if (res.remark == "No friend exist") {
             setList([]);
           } else {
-            console.log(res.response);
             setList(res.response);
           }
         })
@@ -103,7 +101,6 @@ export default function Chat() {
   }, []);
 
   const updateChat = (receiver, thisNotification) => {
-    console.log(receiver);
     getMessage(receiver.roomID, account1)
       .then((res) => {
         if (res == "No message yet") {
@@ -113,6 +110,7 @@ export default function Chat() {
         }
         setChatRoom(receiver.roomID);
         setReceiverName(receiver.friendName);
+        setReceiverAvatar(receiver.photo);
       })
       .catch((err) => {
         console.log(err);
@@ -178,7 +176,7 @@ export default function Chat() {
       mt="10px"
     >
       <Text
-        bgColor={props.message.senderId == account1 ? "#FFB6B5" : "#F0F1F5"}
+        bgColor={`hsl(1,${props.message.score}%,70%)`}
         maxW="40%"
         p="8px"
         borderRadius="10px"
@@ -206,7 +204,7 @@ export default function Chat() {
       <Stack w="450px" p="15px" h="100%" pb="10px">
         <Search getChang={(friend) => setList((pre) => [...pre, friend])} />
         <Stack
-          bgColor="white"
+          bgColor="#EBEBE9"
           borderRadius="50px"
           mt="5px"
           height="calc(100vh - 203px)"
@@ -229,7 +227,7 @@ export default function Chat() {
         <Stack w="calc(100vw - 470px)" pt="15px" h="100%">
           <Tabs>
             <TabList
-              bgImg={tab_bg}
+              bgColor="#EBEBE9"
               borderRadius="30px"
               bgSize="cover"
               h="75px"
@@ -237,29 +235,27 @@ export default function Chat() {
               border="0px"
             >
               <Flex flexGrow="1" ml="20px" alignItems="center">
-                <Avatar name={receiverName} boxSize="40px"></Avatar>
+                {receiverAvatar?<img style={{width:"48px",height:"48px",borderRadius: "100px",objectFit:"cover"}}src={receiverAvatar}></img>:<Avatar name={receiverName} boxSize="40px"></Avatar>}
+                
                 <Text ml="10px">{receiverName}</Text>
               </Flex>
 
-              <Tab _selected={{ color: "#FFB6B5" }}>Chat</Tab>
-              <Tab _selected={{ color: "#FFB6B5" }}>Into The Cloud</Tab>
+              <Tab _selected={{ color: "#ED9DA1" }}>Chat</Tab>
+              <Tab _selected={{ color: "#ED9DA1" }}>Open the Filter</Tab>
             </TabList>
             <TabPanels
               mt="13px"
-              bgColor="white"
+              bgColor="#EBEBE9"
               borderRadius="50px"
               height="calc(100vh - 201px)"
-              bgImg={chat_bg}
-              bgSize="cover"
             >
               <TabPanel
                 h="100%"
-                bgColor="rgba(255, 255, 255,0.7)"
                 borderRadius="50px"
               >
-                <Stack h="100%" justifyContent="space-between">
+                <Stack h="100%" justifyContent="space-between" position="relative">
                   <Stack
-                    h={revise ? "70%" : "76%"}
+                    h={revise ? "73%" : "76%"}
                     overflowY="scroll"
                     mt="30px"
                   >
@@ -271,21 +267,16 @@ export default function Chat() {
                   {revise && (
                     <Flex
                       h="90px"
-                      ml="7px"
                       position="absolute"
-                      bottom="16px"
-                      w="calc(100vw - 509px)"
+                      bottom="0"
+                      w="100%"
                     >
                       <Flex
-                        // w="793px"
-                        // h="90px"
-                        // ml="7px"
-                        flexGrow="1"
                         mr="10px"
-                        bgColor="#F0F1F5"
+                        ml="7px"
+                        bgColor="#FFB6B5"
                         borderRadius="20px"
-                        // position="absolute"
-                        // bottom="16px"
+                        flexGrow="1"
                       >
                         {loading ? (
                           <Spinner
@@ -300,30 +291,26 @@ export default function Chat() {
                         ) : (
                           <Flex
                             h="45px"
-                            w="100%"
                             pr="16px"
                             pl="16px"
-                            justifyContent="space-between"
                             alignItems="center"
                             overflow="scroll"
-                            // onClick={() => sendText(reText.text, reText.p)}
-                            // cursor="pointer"
                           >
-                            <Text>{reText.text}</Text>
-                            <Text>{reText.p}%</Text>
+                            <Text>{reText.text}</Text> 
                           </Flex>
                         )}
                       </Flex>
+                      <Text w="4.5vw" mr="1vw" textAlign="center" fontSize="30px" fontFamily="Open Sans" fontWeight="900">{reText.p}%</Text>
                       <Button
                         mt="6px"
-                        width="calc(10vw + 10px)"
+                        w="4.5vw"
                         height="32px"
                         fontSize="14px"
-                        bgColor="#F0F1F5"
+                        bgColor="#FFB6B5"
                         onClick={() => sendText(reText.text, reText.p)}
                         cursor="pointer"
                       >
-                        SEND
+                        send
                       </Button>
                     </Flex>
                   )}
@@ -331,7 +318,7 @@ export default function Chat() {
                     <Input
                       bgColor="white"
                       borderRadius="20px"
-                      w="793px"
+                      flexGrow="1"
                       h="45px"
                       ml="7px"
                       mr="10px"
@@ -344,11 +331,11 @@ export default function Chat() {
                       width="5vw"
                       height="32px"
                       fontSize="14px"
-                      mr="10px"
+                      mr="1vw"
                       onClick={() => reviseText(text)}
                       bgColor="white"
                     >
-                      <Text>REVISE</Text>
+                      <Text>revise</Text>
                     </Button>
                     <Button
                       width="5vw"
@@ -357,7 +344,7 @@ export default function Chat() {
                       bgColor="white"
                       onClick={() => sendText(text, 0)}
                     >
-                      <Text>SEND</Text>
+                      <Text>send</Text>
                       {/* <Image src={send} /> */}
                     </Button>
                   </Flex>
