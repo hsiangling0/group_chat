@@ -92,18 +92,18 @@ export default function Analysis(props) {
         <Stack w="40%" mr="40px" ml="40px" justifyContent="space-around">
           <Stack>
             <AnalysisD fontFamily="Abril Fatface">{result.avgScore}%</AnalysisD>
-            <AnalysisT>Average degree of revising</AnalysisT>
+            <AnalysisT>Average level of modification</AnalysisT>
           </Stack>
           <Flex justifyContent="space-between" alignItems="flex-end">
             <Stack>
               <AnalysisD fontFamily="Abril Fatface">{result.rewriteCount}</AnalysisD>
-              <AnalysisT>Number of<br/>revised messages</AnalysisT>
+              <AnalysisT>Count of<br/>modified messages</AnalysisT>
             </Stack>
             <Stack>
               <Text fontSize="50px" fontWeight="900" lineHeight="40px" fontFamily="Abril Fatface">
                 {result.totalCount}
               </Text>
-              <AnalysisT>Number of<br/>total messages</AnalysisT>
+              <AnalysisT>Count of<br/>total messages</AnalysisT>
             </Stack>
           </Flex>
           <Stack>
@@ -119,7 +119,7 @@ export default function Analysis(props) {
             />
             <Flex justifyContent="space-between">
               <AnalysisT>me</AnalysisT>
-              <AnalysisT>percentage of<br/>revising</AnalysisT>
+              <AnalysisT>Modification Percentage</AnalysisT>
               <AnalysisT>other</AnalysisT>
             </Flex>
           </Stack>
