@@ -330,7 +330,7 @@ export default function Chat() {
                       onClick={() => reviseText(text)}
                       bgColor="white"
                     >
-                      <Text>revise</Text>
+                      <Text>modify</Text>
                     </Button>
                     <Button
                       width="5vw"
